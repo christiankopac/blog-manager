@@ -15,6 +15,8 @@ import TableHeader from './components/TableHeader.vue'
 import PostRow from './components/PostRow.vue'
 import type { Post } from './types'
 
+
+const appTitle = import.meta.env.VITE_APP_TITLE
 const store = usePostsStore()
 
 const { error, resetError } = useErrorBoundary()
@@ -151,7 +153,7 @@ const handleDelete = (id: number) => {
   <div class="min-h-screen h-screen flex flex-col bg-gray-100 dark:bg-gray-900">
     <header class="shrink-0 px-4 sm:px-6 py-4 bg-gray-800 dark:bg-gray-800 border-b dark:border-gray-700">
       <div class="max-w-screen-xl mx-auto">
-        <h1 class="text-2xl font-bold text-white">Blog Manager</h1>
+        <h1 class="text-2xl font-bold text-white">{{ appTitle }}</h1>
       </div>
     </header>
 
