@@ -6,6 +6,7 @@ export default defineConfig({
 	build: {
 		sourcemap: true,
 		rollupOptions: {
+			external: [/\/__tests__\//, /\.test\./, /\.spec\./],
 			output: {
 				manualChunks: (id) => {
 					if (id.includes("node_modules")) {
@@ -22,7 +23,5 @@ export default defineConfig({
 		},
 		chunkSizeWarningLimit: 800,
 	},
-	plugins: [
-		vue(),
-	],
+	plugins: [vue()],
 });
