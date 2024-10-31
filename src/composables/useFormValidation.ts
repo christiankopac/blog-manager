@@ -1,4 +1,4 @@
-import { ref, computed, watch, type Ref } from "vue";
+import { ref, computed, type Ref } from "vue";
 
 interface FormData {
   title: string;
@@ -54,12 +54,14 @@ export function useFormValidation(formData: Ref<FormData>) {
 
   const touchField = (field: keyof TouchedFields) => {
     touched.value[field] = true;
+    validateForm(); // Only validate when field is touched
   };
 
   const touchAll = () => {
     for (const field of Object.keys(touched.value)) {
       touched.value[field as keyof TouchedFields] = true;
     }
+    validateForm(); // Validate when all fields are touched
   };
 
   const resetValidation = () => {
@@ -74,10 +76,8 @@ export function useFormValidation(formData: Ref<FormData>) {
 
   const setSubmitted = () => {
     isSubmitted.value = true;
-    validateForm();
+    validateForm(); // Validate on form submission
   };
-
-  watch(formData, validateForm, { deep: true });
 
   const isValid = computed(() => Object.keys(errors.value).length === 0);
 
