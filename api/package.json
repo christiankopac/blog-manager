@@ -1,0 +1,20 @@
+{
+    "name": "express-sqlite-api",
+    "version": "1.0.0",
+    "scripts": {
+        "build": "tsc",
+        "start": "node dist/app.js",
+        "dev": "ts-node src/app.ts"
+    },
+    "dependencies": {
+        "express": "^5.0.0",
+        "sqlite": "^5.0.1",
+        "sqlite3": "^5.1.6"
+    },
+    "devDependencies": {
+        "@types/express": "^4.17.21",
+        "@types/node": "^20.9.0",
+        "ts-node": "^10.9.1",
+        "typescript": "^5.2.2"
+    }
+}
