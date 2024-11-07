@@ -15,28 +15,35 @@ import TableHeader from './components/TableHeader.vue'
 import PostRow from './components/PostRow.vue'
 import type { Post } from './types'
 
-
+// Application title from environment variables
 const appTitle = import.meta.env.VITE_APP_TITLE
+
+// Store instance
 const store = usePostsStore()
 
+// Error handling
 const { error, resetError } = useErrorBoundary()
+
+// Modal management
 const { showModal, selectedPost, openCreateModal, openEditModal, closeModal } = usePostModal()
+
+// Search functionality
 const { searchQuery, filteredPosts } = usePostSearch(store)
+
+// Post actions
 const { savePost } = usePostAction(store)
 
+// Delete modal state
 const showDeleteModal = ref(false)
 const postToDelete = ref<number | null>(null)
 
-const openDeleteModal = (id: number) => {
-  postToDelete.value = id
-  showDeleteModal.value = true
-}
-
+// Close delete modal
 const closeDeleteModal = () => {
   showDeleteModal.value = false
   postToDelete.value = null
 }
 
+// Confirm delete action
 const confirmDelete = async () => {
   if (postToDelete.value !== null) {
     await store.deletePost(postToDelete.value)
@@ -44,6 +51,7 @@ const confirmDelete = async () => {
   }
 }
 
+// Keyboard navigation setup
 useKeyboardNavigation({
   escape: () => {
     if (showModal.value) closeModal()
@@ -54,6 +62,7 @@ useKeyboardNavigation({
   }
 })
 
+// Fetch data on component mount
 const fetchData = async () => {
   try {
     await store.fetchData()
@@ -64,28 +73,17 @@ const fetchData = async () => {
 
 onMounted(fetchData)
 
+// Selected posts state
 const selectedPosts = ref<number[]>([])
 const allPostsSelected = computed(() => selectedPosts.value.length === filteredPosts.value.length)
 
+// Delete selected posts
 const deleteSelectedPosts = async () => {
   await store.deletePosts(selectedPosts.value)
   selectedPosts.value = []
 }
 
-const activeMenu = ref<number | null>(null)
-const toggleMenu = (id: number) => {
-  activeMenu.value = activeMenu.value === id ? null : id
-}
-
-const closeActiveMenu = (event: MouseEvent) => {
-  if (activeMenu.value !== null) {
-    const target = event.target as HTMLElement
-    if (!target.closest('.menu-container')) {
-      activeMenu.value = null
-    }
-  }
-}
-
+// Handle checkbox click for selecting posts
 const lastCheckedIndex = ref<number | null>(null)
 const handleCheckboxClick = (event: MouseEvent, postId: number, index: number) => {
   if (event.shiftKey && lastCheckedIndex.value !== null) {
@@ -116,11 +114,49 @@ const handleCheckboxClick = (event: MouseEvent, postId: number, index: number) =
   lastCheckedIndex.value = index
 }
 
+// Toggle select all posts
 const toggleSelectAll = () => {
   selectedPosts.value = allPostsSelected.value ? [] : filteredPosts.value.map(post => post.id)
   lastCheckedIndex.value = null
 }
 
+// Active menu state
+const activeMenu = ref<number | null>(null)
+
+// Toggle menu visibility
+const toggleMenu = (id: number) => {
+  activeMenu.value = activeMenu.value === id ? null : id
+}
+
+// Close active menu on outside click
+const closeActiveMenu = (event: MouseEvent) => {
+  if (activeMenu.value !== null) {
+    const target = event.target as HTMLElement
+    if (!target.closest('.menu-container')) {
+      activeMenu.value = null
+    }
+  }
+}
+
+// Handle edit action
+const handleEdit = (post: Post) => {
+  activeMenu.value = null
+  openEditModal(post)
+}
+
+// Open delete modal
+const openDeleteModal = (id: number) => {
+  postToDelete.value = id
+  showDeleteModal.value = true
+}
+
+// Handle delete action
+const handleDelete = (id: number) => {
+  activeMenu.value = null
+  openDeleteModal(id)
+}
+
+// Lifecycle hooks for adding/removing event listeners
 onMounted(() => {
   document.addEventListener('click', closeActiveMenu)
 })
@@ -129,15 +165,6 @@ onUnmounted(() => {
   document.removeEventListener('click', closeActiveMenu)
 })
 
-const handleEdit = (post: Post) => {
-  activeMenu.value = null
-  openEditModal(post)
-}
-
-const handleDelete = (id: number) => {
-  activeMenu.value = null
-  openDeleteModal(id)
-}
 </script>
 
 <template>

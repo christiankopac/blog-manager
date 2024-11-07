@@ -2,8 +2,10 @@
 import { useToastStore } from '../stores/toast'
 import type { Toast } from '../stores/toast'
 
+// Access the toast store
 const store = useToastStore()
 
+// Function to get CSS classes for the toast container based on the toast type
 const getToastClasses = (type: Toast['type']): string => {
   const baseClasses = 'pointer-events-auto w-full max-w-sm overflow-hidden rounded-lg shadow-lg ring-1'
   
@@ -19,6 +21,7 @@ const getToastClasses = (type: Toast['type']): string => {
   }
 }
 
+// Function to get CSS classes for the toast icon based on the toast type
 const getIconClasses = (type: Toast['type']): string => {
   switch (type) {
     case 'success':
@@ -32,6 +35,7 @@ const getIconClasses = (type: Toast['type']): string => {
   }
 }
 
+// Function to get the icon character based on the toast type
 const getIcon = (type: Toast['type']): string => {
   switch (type) {
     case 'success':
@@ -47,8 +51,10 @@ const getIcon = (type: Toast['type']): string => {
 </script>
 
 <template>
+  <!-- Container for the toast notifications -->
   <div aria-live="polite" class="fixed inset-0 flex items-end px-4 py-6 pointer-events-none sm:p-6 z-50">
     <div class="flex flex-col items-center space-y-4 w-full sm:items-end">
+      <!-- Transition group for smooth animations -->
       <TransitionGroup
         enter-active-class="transform ease-out duration-300 transition"
         enter-from-class="translate-y-2 opacity-0 sm:translate-y-0 sm:translate-x-2"
@@ -57,19 +63,23 @@ const getIcon = (type: Toast['type']): string => {
         leave-from-class="opacity-100"
         leave-to-class="opacity-0"
       >
+        <!-- Render each toast notification -->
         <div v-for="toast in store.toasts" :key="toast.id" :class="getToastClasses(toast.type)">
           <div class="p-4">
             <div class="flex items-start">
+              <!-- Toast icon -->
               <div class="flex-shrink-0">
                 <div :class="getIconClasses(toast.type)" class="h-6 w-6 flex items-center justify-center rounded-full">
                   {{ getIcon(toast.type) }}
                 </div>
               </div>
+              <!-- Toast message -->
               <div class="ml-3 w-0 flex-1">
                 <p class="text-sm font-medium text-gray-900 dark:text-gray-100">
                   {{ toast.message }}
                 </p>
               </div>
+              <!-- Close button -->
               <div class="ml-4 flex-shrink-0 flex">
                 <button
                   @click="() => store.remove(toast.id)"

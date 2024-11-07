@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import type { Post } from '../types'
 
+// Define the props for the component
 defineProps<{
     post: Post
     index: number
@@ -10,6 +11,7 @@ defineProps<{
     userName: string
 }>()
 
+// Define thes emits for the component
 defineEmits<{
     'checkbox-click': [event: MouseEvent, postId: number, index: number]
     'toggle-menu': [id: number]
@@ -19,9 +21,12 @@ defineEmits<{
 </script>
 
 <template>
+    <!-- Table row for a post -->
     <div class="grid grid-cols-12 text-center sm:grid-cols-12" role="row">
+        <!-- Title column with checkbox -->
         <div class="col-span-7 sm:col-span-5 py-4 px-4 text-gray-900 dark:text-white">
             <div class="flex items-start sm:items-center">
+                <!-- Checkbox for selecting the post -->
                 <div class="w-6 h-6 flex-shrink-0 mr-4">
                     <input 
                         type="checkbox" 
@@ -31,6 +36,7 @@ defineEmits<{
                         class="form-checkbox h-4 w-4 text-blue-600 bg-transparent border-gray-300 dark:border-gray-600"
                     >
                 </div>
+                <!-- Post title with loading spinner if pending -->
                 <div class="flex-grow flex justify-center items-center overflow-hidden">
                     <div 
                         v-if="isPending"
@@ -42,16 +48,20 @@ defineEmits<{
                 </div>
             </div>
         </div>
+        <!-- Description column -->
         <div class="hidden sm:block sm:col-span-5 py-4 px-4">
             <span class="truncate block max-w-full text-gray-600 dark:text-gray-400 text-left">{{ post.body }}</span>
         </div>
+        <!-- Author column with menu button -->
         <div class="col-span-5 sm:col-span-2 py-4 px-4 flex items-center">
+            <!-- Author name -->
             <div class="hidden sm:block text-gray-500 dark:text-gray-400 truncate flex-grow text-center">
                 {{ userName }}
             </div>
             <div class="sm:hidden text-gray-500 dark:text-gray-400 truncate break-words whitespace-normal flex-grow text-center">
                 {{ userName }}
             </div>
+            <!-- Menu button and dropdown -->
             <div class="relative menu-container ml-2 flex-shrink-0">
                 <button 
                     @click.stop="$emit('toggle-menu', post.id)"
@@ -62,6 +72,7 @@ defineEmits<{
                         <path d="M10 6a2 2 0 110-4 2 2 0 010 4zM10 12a2 2 0 110-4 2 2 0 010 4zM10 18a2 2 0 110-4 2 2 0 010 4z" />
                     </svg>
                 </button>
+                <!-- Dropdown menu -->
                 <div 
                     v-if="activeMenu === post.id"
                     class="absolute right-[-7px] mt-[5px] w-32 bg-white dark:bg-gray-700 shadow-xl z-10"

@@ -1,9 +1,11 @@
 <script setup lang="ts">
+// Define the props for the component
 defineProps<{
   modelValue: string
   isLoading: boolean
 }>()
 
+// Define the emits for the component
 defineEmits<{
   'update:modelValue': [value: string]
 }>()
@@ -11,6 +13,7 @@ defineEmits<{
 
 <template>
   <div class="relative">
+    <!-- Search icon -->
     <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
       <svg class="h-5 w-5 text-gray-400" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
         <path fill-rule="evenodd"
@@ -18,6 +21,7 @@ defineEmits<{
           clip-rule="evenodd" />
       </svg>
     </div>
+    <!-- Search input field -->
     <input 
       type="text" 
       :value="modelValue"

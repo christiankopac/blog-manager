@@ -4,6 +4,7 @@ import type { Post, User } from '../types'
 import { useFormValidation } from '../composables/useFormValidation'
 import { useFormSubmit } from '../composables/useFormSubmit'
 
+// Define the props for the component
 interface Props {
   post: Post | null
   users: User[]
@@ -15,20 +16,24 @@ const emit = defineEmits<{
   save: [data: { title: string; body: string; userId: number }]
 }>()
 
+// Initialize form data
 const formData = ref({
   title: props.post?.title || '',
   body: props.post?.body || '',
   userId: props.post?.userId || ''
 })
 
+// Quill editor content
 const quillContent = ref(props.post?.body || '')
 watch(quillContent, (newContent) => {
   formData.value.body = newContent
 })
 
+// Form validation and submission
 const { errors, isValid, touchField, touchAll, resetValidation, setSubmitted } = useFormValidation(formData)
 const { isSaving, handleSubmit } = useFormSubmit(emit)
 
+// Submit form handler
 const submitForm = async () => {
   touchAll()
   setSubmitted()
@@ -42,6 +47,7 @@ const submitForm = async () => {
   }, props.post?.id)
 }
 
+// Quill editor options
 const editorOptions = {
   theme: 'bubble',
   modules: {
@@ -56,6 +62,7 @@ const editorOptions = {
   placeholder: 'Write your post content here...'
 }
 
+// Close modal handler
 const closeModal = () => {
   resetValidation()
   emit('close')
@@ -63,19 +70,25 @@ const closeModal = () => {
 </script>
 
 <template>
+  <!-- Modal container -->
   <div class="fixed inset-0 overflow-y-auto" style="z-index: 50;" role="dialog" aria-modal="true"
     aria-labelledby="modal-title" @keydown.esc="closeModal()">
+    <!-- Modal backdrop -->
     <div class="fixed inset-0 bg-gray-900/30 dark:bg-black/50 backdrop-blur-sm" @click="closeModal()" />
 
+    <!-- Modal content -->
     <div class="fixed inset-0 flex items-center justify-center p-4">
       <div class="relative bg-gray-100 dark:bg-gray-800 rounded-lg w-full max-w-2xl mx-auto">
+        <!-- Modal header -->
         <div class="px-6 py-4 border-b border-gray-200 dark:border-gray-700">
           <h2 id="modal-title" class="text-xl font-medium text-gray-900 dark:text-white">
             {{ props.post ? 'Edit' : 'Create' }} blog entry
           </h2>
         </div>
 
+        <!-- Modal form -->
         <form @submit.prevent="submitForm" class="p-6">
+          <!-- Title input -->
           <div class="mb-4">
             <label for="title" class="block text-sm font-medium text-gray-700 dark:text-gray-200 mb-2">
               Title
@@ -92,6 +105,7 @@ const closeModal = () => {
             </p>
           </div>
 
+          <!-- Author select -->
           <div class="mb-4">
             <label for="author" class="block text-sm font-medium text-gray-700 dark:text-gray-200 mb-2">
               Author
@@ -104,7 +118,7 @@ const closeModal = () => {
                   : 'border-gray-300 dark:border-gray-600 focus:ring-blue-500 dark:focus:ring-blue-400 focus:border-blue-500 dark:focus:border-blue-400'
               ]">
               <option value="">Select an author</option>
-              <option v-for="user in users" :key="user.id" :value="user.id">
+              <option v-for="user in props.users" :key="user.id" :value="user.id">
                 {{ user.name }}
               </option>
             </select>
@@ -113,6 +127,7 @@ const closeModal = () => {
             </p>
           </div>
 
+          <!-- Body input -->
           <div class="mb-6">
             <label for="body" class="block text-sm font-medium text-gray-700 dark:text-gray-200 mb-2">
               Body
@@ -133,6 +148,7 @@ const closeModal = () => {
             </p>
           </div>
 
+          <!-- Modal actions -->
           <div class="flex justify-end gap-4">
             <button type="button" @click="closeModal" :disabled="isSaving" aria-label="Close"
               class="px-4 py-2 bg-gray-200 text-gray-700 dark:bg-gray-700 dark:text-white rounded-lg hover:bg-gray-300 dark:hover:bg-gray-600">

@@ -1,35 +1,45 @@
 import { defineStore } from 'pinia'
 
+// Define toast notification types
 export type ToastType = 'success' | 'error' | 'warning' | 'info'
 
+// Interface for toast notification structure
 export interface Toast {
-  id: number
-  message: string
-  type: ToastType
-  duration: number
+  id: number        // Unique identifier
+  message: string   // Toast message
+  type: ToastType   // Notification type
+  duration: number  // Display duration (-1 for persistent)
 }
 
+// Store state interface
 interface ToastState {
-  toasts: Toast[]
+  toasts: Toast[]   // Array of active toasts
 }
 
+// Counter for generating unique IDs
 let nextId = 0
 
+// Define and export the toast store
 export const useToastStore = defineStore('toast', {
+  // Initial state
   state: (): ToastState => ({
     toasts: []
   }),
 
+  // Store actions
   actions: {
+    // Show a new toast notification
     show(message: string, type: ToastType = 'info', duration = 5000) {
       const id = ++nextId
       this.toasts.push({ id, message, type, duration })
       
+      // Auto-remove after duration if specified
       if (duration > 0) {
         setTimeout(() => this.remove(id), duration)
       }
     },
 
+    // Remove a toast by ID
     remove(id: number) {
       const index = this.toasts.findIndex(toast => toast.id === id)
       if (index > -1) {
@@ -37,6 +47,7 @@ export const useToastStore = defineStore('toast', {
       }
     },
 
+    // Convenience methods for different toast types
     success(message: string, duration?: number) {
       this.show(message, 'success', duration)
     },
@@ -53,6 +64,7 @@ export const useToastStore = defineStore('toast', {
       this.show(message, 'info', duration)
     },
 
+    // Show or update a persistent toast
     showPersistent(message: string, type: ToastType = 'info', existingId?: number) {
       if (existingId !== undefined) {
         const index = this.toasts.findIndex(toast => toast.id === existingId)
@@ -67,6 +79,7 @@ export const useToastStore = defineStore('toast', {
       return id
     },
 
+    // Update toast message
     update(id: number, message: string) {
       const index = this.toasts.findIndex(toast => toast.id === id)
       if (index > -1) {
@@ -74,8 +87,18 @@ export const useToastStore = defineStore('toast', {
       }
     },
 
+    // Dismiss toast
     dismiss(id: number) {
       this.remove(id)
     }
   }
 })
+
+// This store:
+// - Manages toast notifications using Pinia
+// - Supports different notification types (success, error, warning, info)
+// - Handles auto-dismissal with configurable duration
+// - Provides persistent toasts that don't auto-dismiss
+// - Allows updating existing toast messages
+// - Includes convenience methods for each toast type
+// - Uses unique IDs for toast identification
