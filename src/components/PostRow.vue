@@ -1,23 +1,26 @@
 <script setup lang="ts">
-import type { Post } from '../types'
+import { defineProps, defineEmits } from 'vue'
+import type { Post } from '../types/post'
 
 // Define the props for the component
-defineProps<{
+interface Props {
     post: Post
     index: number
     isSelected: boolean
     isPending: boolean
     activeMenu: number | null
     userName: string
-}>()
+}
+defineProps<Props>()
 
-// Define thes emits for the component
-defineEmits<{
-    'checkbox-click': [event: MouseEvent, postId: number, index: number]
-    'toggle-menu': [id: number]
-    'edit': [post: Post]
-    'delete': [id: number]
-}>()
+// Define the emits for the component
+interface Emits {
+    (event: 'checkbox-click', mouseEvent: MouseEvent, postId: number, index: number): void
+    (event: 'toggle-menu', id: number): void
+    (event: 'edit', post: Post): void
+    (event: 'delete', id: number): void
+}
+defineEmits<Emits>()
 </script>
 
 <template>

@@ -1,4 +1,4 @@
-import type { Post, CreatePostData, UpdatePostData } from "../types"
+import type { Post, CreatePostData, UpdatePostData } from "../types/post"
 import { fetchData, sendRequest } from "./api"
 
 // This module:

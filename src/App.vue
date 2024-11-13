@@ -13,7 +13,7 @@ import SearchBar from './components/SearchBar.vue'
 import ActionButtons from './components/ActionButtons.vue'
 import TableHeader from './components/TableHeader.vue'
 import PostRow from './components/PostRow.vue'
-import type { Post } from './types'
+import type { Post } from './types/post'
 
 // Application title from environment variables
 const appTitle = import.meta.env.VITE_APP_TITLE

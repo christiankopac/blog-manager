@@ -1,5 +1,5 @@
 import { ref } from 'vue'
-import type { Post } from '../types'
+import type { Post } from '../types/post'
 
 // This composable:
 // - Manages modal visibility state

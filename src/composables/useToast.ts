@@ -1,4 +1,5 @@
 import { ref } from 'vue'
+import type { Toast, ToastType } from '@/types/toast'
 
 // This composable:
 // - Defines types and interfaces for toast notifications
@@ -9,17 +10,6 @@ import { ref } from 'vue'
 //   - Update toast messages
 // - Includes convenience methods for different toast types
 // - Uses unique IDs for toast identification
-
-// Define possible toast notification types
-export type ToastType = 'success' | 'error' | 'info' | 'warning'
-
-// Interface for toast notification structure
-export interface Toast {
-  id: number        // Unique identifier
-  message: string   // Toast message content
-  type: ToastType   // Type of toast notification
-  duration?: number // Optional display duration
-}
 
 // Counter for generating unique toast IDs
 let nextId = 0

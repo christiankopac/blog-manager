@@ -2,7 +2,7 @@ import { mount } from '@vue/test-utils'
 import { describe, expect, test, vi } from 'vitest'
 import App from './App.vue'
 import { createTestingPinia } from '@pinia/testing'
-import { usePostsStore } from '@/stores/posts'
+import { usePostsStore } from './stores/posts'
 
 describe('App', () => {
   const mockPosts = [
@@ -37,7 +37,8 @@ describe('App', () => {
                 users: mockUsers,
                 isLoading: false,
                 error: null,
-                pendingPosts: []
+                pendingPosts: [],
+                selectedPosts: []
               }
             }
           })
@@ -67,7 +68,8 @@ describe('App', () => {
     await postRow.vm.$emit('checkbox-click', new MouseEvent('click'), mockPosts[0].id, 0)
     
     // Check if the post is selected
-    expect(wrapper.vm.selectedPosts).toContain(mockPosts[0].id)
+    const postsStore = usePostsStore()
+    expect(postsStore.selectedPosts).toContain(mockPosts[0].id)
   })
 
   test('handles select all', async () => {
@@ -81,7 +83,8 @@ describe('App', () => {
     
     // Check if all posts are selected
     const allPostIds = mockPosts.map(post => post.id)
-    expect(wrapper.vm.selectedPosts).toEqual(allPostIds)
+    const postsStore = usePostsStore()
+    expect(postsStore.selectedPosts).toEqual(allPostIds)
   })
 
   test('shows loading state', () => {
@@ -128,7 +131,8 @@ describe('App', () => {
     const menuButton = wrapper.find('button[title="Options"]')
     await menuButton.trigger('click')
 
-    expect(wrapper.vm.activeMenu).toBe(mockPosts[0].id)
+    const postsStore = usePostsStore()
+    expect(postsStore.activeMenu).toBe(mockPosts[0].id)
   })
 
   test('handles shift-click selection', async () => {
@@ -143,7 +147,8 @@ describe('App', () => {
       shiftKey: true
     })
 
-    expect(wrapper.vm.selectedPosts).toContain(mockPosts[0].id)
-    expect(wrapper.vm.selectedPosts).toContain(mockPosts[1].id)
+    const postsStore = usePostsStore()
+    expect(postsStore.selectedPosts).toContain(mockPosts[0].id)
+    expect(postsStore.selectedPosts).toContain(mockPosts[1].id)
   })
 }) 

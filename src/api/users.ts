@@ -1,4 +1,4 @@
-import type { User } from "../types"
+import type { User } from "../types/user"
 import { fetchData } from "./api"
 
 // This module:

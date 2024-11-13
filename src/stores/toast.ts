@@ -1,15 +1,14 @@
+import type { Toast, ToastType } from '@/types/toast'
 import { defineStore } from 'pinia'
 
-// Define toast notification types
-export type ToastType = 'success' | 'error' | 'warning' | 'info'
-
-// Interface for toast notification structure
-export interface Toast {
-  id: number        // Unique identifier
-  message: string   // Toast message
-  type: ToastType   // Notification type
-  duration: number  // Display duration (-1 for persistent)
-}
+// This store:
+// - Manages toast notifications using Pinia
+// - Supports different notification types (success, error, warning, info)
+// - Handles auto-dismissal with configurable duration
+// - Provides persistent toasts that don't auto-dismiss
+// - Allows updating existing toast messages
+// - Includes convenience methods for each toast type
+// - Uses unique IDs for toast identification
 
 // Store state interface
 interface ToastState {
@@ -94,11 +93,3 @@ export const useToastStore = defineStore('toast', {
   }
 })
 
-// This store:
-// - Manages toast notifications using Pinia
-// - Supports different notification types (success, error, warning, info)
-// - Handles auto-dismissal with configurable duration
-// - Provides persistent toasts that don't auto-dismiss
-// - Allows updating existing toast messages
-// - Includes convenience methods for each toast type
-// - Uses unique IDs for toast identification

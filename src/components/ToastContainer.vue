@@ -1,12 +1,12 @@
 <script setup lang="ts">
 import { useToastStore } from '../stores/toast'
-import type { Toast } from '../stores/toast'
+import type { ToastType } from '../types/toast'
 
 // Access the toast store
 const store = useToastStore()
 
 // Function to get CSS classes for the toast container based on the toast type
-const getToastClasses = (type: Toast['type']): string => {
+const getToastClasses = (type: ToastType): string => {
   const baseClasses = 'pointer-events-auto w-full max-w-sm overflow-hidden rounded-lg shadow-lg ring-1'
   
   switch (type) {
@@ -22,7 +22,7 @@ const getToastClasses = (type: Toast['type']): string => {
 }
 
 // Function to get CSS classes for the toast icon based on the toast type
-const getIconClasses = (type: Toast['type']): string => {
+const getIconClasses = (type: ToastType): string => {
   switch (type) {
     case 'success':
       return 'text-green-500 dark:text-green-400'
@@ -36,7 +36,7 @@ const getIconClasses = (type: Toast['type']): string => {
 }
 
 // Function to get the icon character based on the toast type
-const getIcon = (type: Toast['type']): string => {
+const getIcon = (type: ToastType): string => {
   switch (type) {
     case 'success':
       return '✓'

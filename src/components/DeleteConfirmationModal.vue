@@ -1,3 +1,28 @@
+<script setup lang="ts">
+import { defineProps, defineEmits, type Ref } from 'vue'
+
+interface Props {
+  showDeleteModal: Ref<boolean>
+}
+
+interface Emits {
+  (event: 'close'): void
+  (event: 'confirm'): void
+}
+
+// Define the props for the component
+defineProps<Props>()
+
+// Define the emits for the component
+const emit = defineEmits<Emits>()
+
+// Emit close event
+const onClose = () => emit('close')
+
+// Emit confirm event
+const onConfirm = () => emit('confirm')
+</script>
+
 <template>
   <!-- Modal container -->
   <div v-if="showDeleteModal" class="fixed inset-0 overflow-y-auto z-50" role="dialog" aria-modal="true" aria-labelledby="modal-title">
@@ -31,22 +56,3 @@
     </div>
   </div>
 </template>
-
-<script setup lang="ts">
-// Define the props for the component
-defineProps<{
-  showDeleteModal: boolean
-}>()
-
-// Define the emits for the component
-const emit = defineEmits<{
-  close: [],
-  confirm: []
-}>()
-
-// Emit close event
-const onClose = () => emit('close')
-
-// Emit confirm event
-const onConfirm = () => emit('confirm')
-</script>

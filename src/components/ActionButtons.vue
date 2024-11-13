@@ -1,9 +1,13 @@
 <script setup lang="ts">
-defineProps<{
+import { defineProps, defineEmits } from 'vue'
+
+interface Props {
   isLoading: boolean
   selectedCount: number
   showDeleteModal?: boolean
-}>()
+}
+
+defineProps<Props>()
 
 const emit = defineEmits<{
   'create': []

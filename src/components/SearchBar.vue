@@ -1,14 +1,16 @@
 <script setup lang="ts">
+import { defineProps, defineEmits } from 'vue'
+
 // Define the props for the component
-defineProps<{
+interface Props {
   modelValue: string
   isLoading: boolean
-}>()
+}
+defineProps<Props>()
 
 // Define the emits for the component
-defineEmits<{
-  'update:modelValue': [value: string]
-}>()
+type Emits = (event: 'update:modelValue', value: string) => void
+defineEmits<Emits>()
 </script>
 
 <template>

@@ -1,13 +1,15 @@
 <script setup lang="ts">
+import { defineProps, defineEmits } from 'vue'
+
 // Define the props for the component
-defineProps<{
+interface Props {
   allPostsSelected: boolean
-}>()
+}
+defineProps<Props>()
 
 // Define the emits for the component
-defineEmits<{
-  'toggle-select-all': []
-}>()
+type Emits = (event: 'toggle-select-all') => void
+defineEmits<Emits>()
 </script>
 
 <template>

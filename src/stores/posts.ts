@@ -3,9 +3,20 @@ import {
   fetchPosts, createPost, updatePost, deletePost as apiDeletePost,
 } from "../api/posts";
 import { fetchUsers } from "../api/users";
-import type { Post, User, CreatePostData, UpdatePostData } from "../types";
+import type { Post, CreatePostData, UpdatePostData } from "../types/post";
+import type { User } from "../types/user";
 import { useToastStore } from "./toast";
 import type { StoreGeneric } from 'pinia'
+
+// This store:
+// - Uses Pinia for state management
+// - Manages posts and users data
+// - Handles CRUD operations with optimistic updates
+// - Tracks loading and error states
+// - Provides search and filtering functionality
+// - Manages pending operations for UI feedback
+// - Integrates with toast notifications
+// - Includes type safety with TypeScript
 
 // Define store state interface
 interface PostsState {
@@ -32,6 +43,11 @@ export interface PostsStore extends StoreGeneric {
   isPostPending: (postId: number) => boolean;
 }
 
+// Internal helper function for user name lookup
+const getUserNameById = (state: PostsState,userId: number) => {
+  return state.users.find(user => user.id === userId)?.name ?? "Unknown"
+}
+
 // Define and export the store
 export const usePostsStore = defineStore("posts", {
   // Initial state
@@ -46,12 +62,14 @@ export const usePostsStore = defineStore("posts", {
 
   // Getters for computed values
   getters: {
-    // Filter posts by search query
+      // Filter posts by search query
     getPostsBySearch: (state) => {
       return (query: string) => {
         const searchQuery = query.toLowerCase();
         return state.posts.filter((post) =>
-          post.title.toLowerCase().includes(searchQuery)
+          post.title.toLowerCase().includes(searchQuery) || 
+          post.body.toLowerCase().includes(searchQuery) || 
+          getUserNameById(state,post.userId).toLowerCase().includes(searchQuery)
         );
       };
     },
@@ -207,13 +225,3 @@ export const usePostsStore = defineStore("posts", {
     },
   },
 }) as unknown as () => PostsStore
-
-// This store:
-// - Uses Pinia for state management
-// - Manages posts and users data
-// - Handles CRUD operations with optimistic updates
-// - Tracks loading and error states
-// - Provides search and filtering functionality
-// - Manages pending operations for UI feedback
-// - Integrates with toast notifications
-// - Includes type safety with TypeScript
