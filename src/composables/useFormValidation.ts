@@ -1,5 +1,16 @@
 import { ref, computed, type Ref } from "vue";
 
+// This composable:
+// - Defines interfaces for form data, errors, and touched fields
+// - Creates reactive states for errors, touched fields, and submission status
+// - Implements validation rules for form fields
+// - Provides helper functions for:
+//   - Field validation
+//   - Form submission
+//   - State reset
+//   - Touch tracking
+// - Returns validation state and utility functions
+
 // Define interfaces for form data structure
 interface FormData {
   title: string;
@@ -125,13 +136,3 @@ export function useFormValidation(formData: Ref<FormData>) {
   };
 }
 
-// This composable:
-// - Defines interfaces for form data, errors, and touched fields
-// - Creates reactive states for errors, touched fields, and submission status
-// - Implements validation rules for form fields
-// - Provides helper functions for:
-//   - Field validation
-//   - Form submission
-//   - State reset
-//   - Touch tracking
-// - Returns validation state and utility functions

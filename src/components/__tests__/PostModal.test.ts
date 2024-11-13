@@ -3,11 +3,13 @@ import { describe, expect, test, vi } from 'vitest'
 import PostModal from '../PostModal.vue'
 import { createTestingPinia } from '@pinia/testing'
 
+// Tests for PostModal.vue component
 describe('PostModal', () => {
   const users = [
     { id: 1, name: 'Test User', email: 'test@test.com', username: 'test' }
   ]
   
+  // Form validation tests
   test('validates required fields', async () => {
     const wrapper = mount(PostModal, {
       props: {
@@ -33,6 +35,7 @@ describe('PostModal', () => {
     expect(wrapper.text()).toContain('Select an author')
   })
 
+  // Form submission tests
   test('emits save event with valid data', async () => {
     const wrapper = mount(PostModal, {
       props: {
@@ -61,19 +64,21 @@ describe('PostModal', () => {
     await wrapper.find('#author').setValue('1')
     
     // Simulate Quill content update
-    wrapper.vm.quillContent = 'Test content'
+    await wrapper.findComponent({ name: 'QuillEditor' }).vm.$emit('update:content', 'Test content')
     await wrapper.vm.$nextTick()
 
     await wrapper.find('form').trigger('submit')
 
-    expect(wrapper.emitted('save')).toBeTruthy()
-    expect(wrapper.emitted('save')[0][0]).toEqual({
+    const emittedSave = wrapper.emitted('save')
+    expect(emittedSave).toBeTruthy()
+    expect(emittedSave?.[0][0]).toEqual({
       title: 'Test Title',
       body: 'Test content',
       userId: 1
     })
   })
 
+  // Editing mode tests
   test('pre-fills form when editing existing post', () => {
     const existingPost = {
       id: 1,
@@ -100,7 +105,7 @@ describe('PostModal', () => {
       }
     })
 
-    expect(wrapper.find('#title').element.value).toBe('Existing Post')
-    expect(wrapper.find('#author').element.value).toBe('1')
+    expect((wrapper.find('#title').element as HTMLInputElement).value).toBe('Existing Post')
+    expect((wrapper.find('#author').element as HTMLSelectElement).value).toBe('1')
   })
 })

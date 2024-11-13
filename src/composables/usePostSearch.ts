@@ -2,6 +2,13 @@ import type { PostsStore } from '../stores/posts'
 import { useDebounce } from './useDebounce'
 import { computed, ref } from 'vue'
 
+// This composable:
+// - Takes a posts store instance as parameter
+// - Creates reactive search query state
+// - Implements debounced search to improve performance
+// - Provides computed filtered posts based on search term
+// - Returns search query and filtered results for use in components
+
 /**
  * Custom composable for post search functionality
  * Provides debounced search and filtered posts list
@@ -34,9 +41,3 @@ export function usePostSearch(store: PostsStore) {
   }
 }
 
-// This composable:
-// - Takes a posts store instance as parameter
-// - Creates reactive search query state
-// - Implements debounced search to improve performance
-// - Provides computed filtered posts based on search term
-// - Returns search query and filtered results for use in components

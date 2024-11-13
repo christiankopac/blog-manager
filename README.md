@@ -113,3 +113,11 @@ npm run preview
 - API response caching
 - Debounced search
 - Optimized bundle splitting
+
+## Documentation
+
+- [General Overview](docs/01-overview.md)
+- [Architecture Overview](docs/02-architecture-overview.md)
+- [Development Workflow](docs/03-development-workflow.md)
+- [Optimizations, Testing & Profiling](docs/04-optimizations.md)
+- [Best Practices and Patterns](docs/05-best-practices.md)

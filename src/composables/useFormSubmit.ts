@@ -1,5 +1,15 @@
 import { ref } from 'vue'
 
+// This composable:
+// - Defines interfaces for form data and emit functions
+// - Creates a reactive saving state
+// - Provides a submit handler that:
+//   - Manages saving state
+//   - Handles both new and existing posts
+//   - Emits appropriate events
+//   - Ensures cleanup of saving state
+// - Returns both the saving state and submit handler
+
 // Define the shape of form data
 interface FormPayload {
   title: string
@@ -50,13 +60,3 @@ export function useFormSubmit(emit: EmitFunction) {
   }
 }
 
-// This composable:
-
-// - Defines interfaces for form data and emit functions
-// - Creates a reactive saving state
-// - Provides a submit handler that:
-//   - Manages saving state
-//   - Handles both new and existing posts
-//   - Emits appropriate events
-//   - Ensures cleanup of saving state
-// - Returns both the saving state and submit handler

@@ -3,6 +3,7 @@ import { usePostAction } from '../usePostAction'
 import { createTestingPinia } from '@pinia/testing'
 import { usePostsStore } from '../../stores/posts'
 
+// Tests for usePostAction composable
 describe('usePostAction', () => {
   const mockPostData = {
     title: 'Test Post',
@@ -10,6 +11,7 @@ describe('usePostAction', () => {
     userId: 1
   }
 
+  // Create operation tests
   test('calls store.savePost with create post data', async () => {
     const pinia = createTestingPinia({
       createSpy: vi.fn
@@ -24,6 +26,7 @@ describe('usePostAction', () => {
     expect(store.savePost).toHaveBeenCalledTimes(1)
   })
 
+  // Update operation tests
   test('calls store.savePost with update post data', async () => {
     const pinia = createTestingPinia({
       createSpy: vi.fn
@@ -43,6 +46,7 @@ describe('usePostAction', () => {
     expect(store.savePost).toHaveBeenCalledTimes(1)
   })
 
+  // Result handling tests
   test('returns the result from store.savePost', async () => {
     const pinia = createTestingPinia({
       createSpy: vi.fn
@@ -58,6 +62,7 @@ describe('usePostAction', () => {
     expect(result).toEqual(expectedResult)
   })
 
+  // Error handling tests
   test('propagates errors from store.savePost', async () => {
     const pinia = createTestingPinia({
       createSpy: vi.fn

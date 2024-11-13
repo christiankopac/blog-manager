@@ -1,6 +1,15 @@
 import { ref } from 'vue'
 import type { Post } from '../types'
 
+// This composable:
+// - Manages modal visibility state
+// - Tracks currently selected post
+// - Provides methods to:
+//   - Open modal for creating new posts
+//   - Open modal for editing existing posts
+//   - Close modal and reset state
+// - Returns modal state and control methods
+
 /**
  * Custom composable for managing post modal state
  * Handles showing/hiding modal and selected post data
@@ -51,12 +60,4 @@ export function usePostModal() {
   }
 }
 
-// This composable:
 
-// - Manages modal visibility state
-// - Tracks currently selected post
-// - Provides methods to:
-//   - Open modal for creating new posts
-//   - Open modal for editing existing posts
-//   - Close modal and reset state
-// - Returns modal state and control methods

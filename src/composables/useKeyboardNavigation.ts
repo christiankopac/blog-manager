@@ -1,5 +1,14 @@
 import { onMounted, onUnmounted } from 'vue'
 
+// This composable:
+// - Takes an object of keyboard event handlers
+// - Creates a keydown event handler that:
+//   - Ignores input/textarea elements
+//   - Handles IME composition
+//   - Executes corresponding handler for pressed key
+// - Sets up and cleans up event listeners using Vue lifecycle hooks
+// - Provides type safety for handler keys
+
 /**
  * Custom composable for handling keyboard navigation
  * Manages keyboard event listeners and executes corresponding handlers
@@ -40,11 +49,3 @@ export function useKeyboardNavigation(handlers: {
   onUnmounted(() => document.removeEventListener('keydown', handleKeydown))
 }
 
-// This composable:
-// - Takes an object of keyboard event handlers
-// - Creates a keydown event handler that:
-//   - Ignores input/textarea elements
-//   - Handles IME composition
-//   - Executes corresponding handler for pressed key
-// - Sets up and cleans up event listeners using Vue lifecycle hooks
-// - Provides type safety for handler keys

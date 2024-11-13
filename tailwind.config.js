@@ -1,5 +1,16 @@
 // tailwind.config.js
 /** @type {import('tailwindcss').Config} */
+
+
+// This config:
+// - Uses TypeScript for better type checking
+// - Scans specified files for utility classes
+// - Configures system-based dark mode
+// - Extends default theme with:
+// - Custom font stacks
+// - Consistent border radius
+// - Includes form styling plugin
+
 export default {
   // Files to scan for utility classes
   content: [
@@ -30,12 +41,3 @@ export default {
     require('@tailwindcss/forms'),  // Enhanced form styles
   ],
 }
-
-// This config:
-// - Uses TypeScript for better type checking
-// - Scans specified files for utility classes
-// - Configures system-based dark mode
-// - Extends default theme with:
-// - Custom font stacks
-// - Consistent border radius
-// - Includes form styling plugin

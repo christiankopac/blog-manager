@@ -1,3 +1,11 @@
+// This cache:
+// - Uses generics for type-safe data storage
+// - Supports configurable TTL (time-to-live)
+// - Auto-removes expired entries on access
+// - Provides simple set/get/clear interface
+// - Stores timestamps with each entry
+// - Uses Map for efficient key-value storage
+
 // Interface for cache entries with generic type and timestamp
 interface CacheEntry<T> {
   data: T           // Cached data of generic type
@@ -55,10 +63,3 @@ export class APICache {
   }
 }
 
-// This cache:
-// - Uses generics for type-safe data storage
-// - Supports configurable TTL (time-to-live)
-// - Auto-removes expired entries on access
-// - Provides simple set/get/clear interface
-// - Stores timestamps with each entry
-// - Uses Map for efficient key-value storage

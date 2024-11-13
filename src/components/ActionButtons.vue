@@ -2,7 +2,7 @@
 defineProps<{
   isLoading: boolean
   selectedCount: number
-  showDeleteModal: boolean
+  showDeleteModal?: boolean
 }>()
 
 const emit = defineEmits<{

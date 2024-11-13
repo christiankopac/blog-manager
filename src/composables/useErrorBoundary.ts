@@ -1,5 +1,11 @@
 import { ref, onErrorCaptured } from 'vue'
 
+// This composable:
+// - Creates a reactive error state using `ref`
+// - Sets up error capture using Vue's `onErrorCaptured` hook
+// - Provides a function to reset the error state
+// - Returns both the error state and reset function for use in components
+
 /**
  * Custom composable for handling errors in Vue components.
  * Provides error capturing and reset functionality.
@@ -29,9 +35,3 @@ export function useErrorBoundary() {
     resetError // Function to clear error
   }
 }
-
-// This composable:
-// - Creates a reactive error state using `ref`
-// - Sets up error capture using Vue's `onErrorCaptured` hook
-// - Provides a function to reset the error state
-// - Returns both the error state and reset function for use in components

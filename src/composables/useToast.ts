@@ -1,5 +1,15 @@
 import { ref } from 'vue'
 
+// This composable:
+// - Defines types and interfaces for toast notifications
+// - Manages a reactive array of active toasts
+// - Provides methods to:
+//   - Add new toasts with auto-removal
+//   - Remove existing toasts
+//   - Update toast messages
+// - Includes convenience methods for different toast types
+// - Uses unique IDs for toast identification
+
 // Define possible toast notification types
 export type ToastType = 'success' | 'error' | 'info' | 'warning'
 
@@ -75,12 +85,3 @@ export function useToast() {
   }
 }
 
-// This composable:
-// - Defines types and interfaces for toast notifications
-// - Manages a reactive array of active toasts
-// - Provides methods to:
-//   - Add new toasts with auto-removal
-//   - Remove existing toasts
-//   - Update toast messages
-// - Includes convenience methods for different toast types
-// - Uses unique IDs for toast identification

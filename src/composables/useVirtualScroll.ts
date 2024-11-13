@@ -1,5 +1,13 @@
 import { ref, computed, onMounted, onUnmounted } from 'vue'
 
+// This composable:
+// - Implements virtual scrolling for large lists
+// - Manages scroll position and viewport calculations
+// - Only renders items that are visible in viewport (plus buffer)
+// - Handles window resize events
+// - Provides positioning data for rendered items
+// - Returns necessary refs and computed properties for implementation
+
 /**
  * Interface for virtual scroll configuration options
  */
@@ -94,10 +102,3 @@ export function useVirtualScroll<T>(items: T[], options: VirtualScrollOptions) {
   }
 }
 
-// This composable:
-// - Implements virtual scrolling for large lists
-// - Manages scroll position and viewport calculations
-// - Only renders items that are visible in viewport (plus buffer)
-// - Handles window resize events
-// - Provides positioning data for rendered items
-// - Returns necessary refs and computed properties for implementation

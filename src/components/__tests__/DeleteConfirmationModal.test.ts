@@ -2,7 +2,9 @@ import { mount } from '@vue/test-utils'
 import { describe, expect, test } from 'vitest'
 import DeleteConfirmationModal from '../DeleteConfirmationModal.vue'
 
+// Tests for DeleteConfirmationModal.vue component
 describe('DeleteConfirmationModal', () => {
+  // Visibility tests
   test('does not render when showDeleteModal is false', () => {
     const wrapper = mount(DeleteConfirmationModal, {
       props: {
@@ -23,7 +25,8 @@ describe('DeleteConfirmationModal', () => {
     expect(wrapper.find('[role="dialog"]').exists()).toBe(true)
     expect(wrapper.find('#modal-title').text()).toBe('Confirm Delete')
   })
-
+  
+  // Event emission tests
   test('emits confirm event when delete button is clicked', async () => {
     const wrapper = mount(DeleteConfirmationModal, {
       props: {
@@ -65,7 +68,8 @@ describe('DeleteConfirmationModal', () => {
     expect(wrapper.emitted('close')).toBeTruthy()
     expect(wrapper.emitted('close')).toHaveLength(1)
   })
-
+  
+  // Content tests
   test('displays correct confirmation message', () => {
     const wrapper = mount(DeleteConfirmationModal, {
       props: {

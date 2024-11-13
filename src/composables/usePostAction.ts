@@ -1,5 +1,11 @@
 import type { PostsStore } from "@/stores/posts"
 
+// This composable:
+// - Defines interface for post creation data
+// - Takes a posts store instance as parameter
+// - Provides a method to save/update posts through the store
+// - Returns the save method for use in components
+
 /**
  * Interface defining the structure of post creation data
  */
@@ -30,9 +36,3 @@ export function usePostAction(store: PostsStore) {
     savePost // Method to save/update posts
   }
 }
-
-// This composable:
-// - Defines interface for post creation data
-// - Takes a posts store instance as parameter
-// - Provides a method to save/update posts through the store
-// - Returns the save method for use in components

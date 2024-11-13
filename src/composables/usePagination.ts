@@ -1,5 +1,15 @@
 import { ref, computed, watchEffect } from 'vue'
 
+// This composable:
+// - Takes an array of items and items per page count
+// - Manages current page state
+// - Watches for changes in items array to handle edge cases
+// - Provides computed properties for:
+//   - Total pages
+//   - Current page items
+// - Includes methods for page navigation
+// - Returns pagination state and control methods
+
 /**
  * Custom composable for handling pagination
  * Manages page state and provides paginated data
@@ -67,13 +77,3 @@ export function usePagination<T>(items: T[], itemsPerPage: number) {
     previousPage    // Go to previous page
   }
 }
-
-// This composable:
-// - Takes an array of items and items per page count
-// - Manages current page state
-// - Watches for changes in items array to handle edge cases
-// - Provides computed properties for:
-//   - Total pages
-//   - Current page items
-// - Includes methods for page navigation
-// - Returns pagination state and control methods

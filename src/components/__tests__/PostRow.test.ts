@@ -38,8 +38,8 @@ describe('PostRow', () => {
     await checkbox.trigger('click')
 
     expect(wrapper.emitted('checkbox-click')).toBeTruthy()
-    expect(wrapper.emitted('checkbox-click')![0][1]).toBe(mockPost.id)
-    expect(wrapper.emitted('checkbox-click')![0][2]).toBe(0) // index
+    expect(wrapper.emitted('checkbox-click')?.[0][1]).toBe(mockPost.id)
+    expect(wrapper.emitted('checkbox-click')?.[0][2]).toBe(0) // index
   })
 
   test('shows loading spinner when isPending is true', () => {
@@ -63,7 +63,7 @@ describe('PostRow', () => {
     await menuButton.trigger('click')
 
     expect(wrapper.emitted('toggle-menu')).toBeTruthy()
-    expect(wrapper.emitted('toggle-menu')![0]).toEqual([mockPost.id])
+    expect(wrapper.emitted('toggle-menu')?.[0]).toEqual([mockPost.id])
   })
 
   test('shows menu options when activeMenu matches post id', () => {
@@ -80,6 +80,7 @@ describe('PostRow', () => {
     expect(menu.find('button:last-child').text()).toBe('Delete')
   })
 
+  // Action tests
   test('emits edit event with post data', async () => {
     const wrapper = mount(PostRow, {
       props: {
@@ -110,6 +111,7 @@ describe('PostRow', () => {
     expect(wrapper.emitted('delete')?.[0]).toEqual([mockPost.id])
   })
 
+  // Selection state tests
   test('checkbox reflects isSelected prop', () => {
     const wrapper = mount(PostRow, {
       props: {
@@ -119,6 +121,6 @@ describe('PostRow', () => {
     })
 
     const checkbox = wrapper.find('input[type="checkbox"]')
-    expect(checkbox.element.checked).toBe(true)
+    expect((checkbox.element as HTMLInputElement).checked).toBe(true)
   })
 })

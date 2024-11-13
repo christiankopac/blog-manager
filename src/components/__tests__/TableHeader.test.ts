@@ -2,7 +2,9 @@ import { mount } from '@vue/test-utils'
 import { describe, expect, test } from 'vitest'
 import TableHeader from '../TableHeader.vue'
 
+// Tests for TableHeader.vue component
 describe('TableHeader', () => {
+  // Content rendering tests
   test('renders all column headers correctly', () => {
     const wrapper = mount(TableHeader, {
       props: {
@@ -14,7 +16,8 @@ describe('TableHeader', () => {
     expect(wrapper.text()).toContain('Description')
     expect(wrapper.text()).toContain('Author')
   })
-
+  
+  // Event emission tests
   test('emits toggle-select-all when checkbox is changed', async () => {
     const wrapper = mount(TableHeader, {
       props: {
@@ -28,7 +31,8 @@ describe('TableHeader', () => {
     expect(wrapper.emitted('toggle-select-all')).toBeTruthy()
     expect(wrapper.emitted('toggle-select-all')).toHaveLength(1)
   })
-
+  
+  // Props reflection tests
   test('checkbox reflects allPostsSelected prop', async () => {
     const wrapper = mount(TableHeader, {
       props: {
@@ -37,13 +41,14 @@ describe('TableHeader', () => {
     })
 
     const checkbox = wrapper.find('input[type="checkbox"]')
-    expect(checkbox.element.checked).toBe(true)
+    expect((checkbox.element as HTMLInputElement).checked).toBe(true)
 
     // Test with false value
     await wrapper.setProps({ allPostsSelected: false })
-    expect(checkbox.element.checked).toBe(false)
+    expect((checkbox.element as HTMLInputElement).checked).toBe(false)
   })
-
+  
+  // Responsive design tests
   test('maintains responsive layout classes', () => {
     const wrapper = mount(TableHeader, {
       props: {

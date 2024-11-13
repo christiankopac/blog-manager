@@ -2,6 +2,7 @@ import { describe, expect, test } from 'vitest'
 import { useFormValidation } from '../useFormValidation'
 import { ref, nextTick } from 'vue'
 
+// Tests for useFormValidation composable
 describe('useFormValidation', () => {
   const createFormData = (data = {}) => ref({
     title: '',
@@ -10,6 +11,7 @@ describe('useFormValidation', () => {
     ...data
   })
 
+  // Validation logic tests
   test('validates title length', async () => {
     const formData = createFormData({ title: 'ab' })
     const { errors, touchField } = useFormValidation(formData)
@@ -29,6 +31,7 @@ describe('useFormValidation', () => {
     expect(errors.value.title).toBeUndefined()
   })
 
+  // Form state tests
   test('tracks form validity', async () => {
     const formData = createFormData()
     const { isValid, touchAll, setSubmitted } = useFormValidation(formData)
@@ -53,6 +56,7 @@ describe('useFormValidation', () => {
     expect(isValid.value).toBe(true)
   })
 
+  // Reset functionality tests
   test('resets validation state', async () => {
     const formData = createFormData()
     const { errors, touchField, resetValidation } = useFormValidation(formData)
@@ -68,6 +72,7 @@ describe('useFormValidation', () => {
     expect(errors.value.title).toBeUndefined()
   })
 
+  // Real-time validation tests
   test('validates in real-time when fields are touched', async () => {
     const formData = createFormData()
     const { errors, touchField } = useFormValidation(formData)

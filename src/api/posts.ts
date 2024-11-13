@@ -1,6 +1,19 @@
 import type { Post, CreatePostData, UpdatePostData } from "../types"
 import { fetchData, sendRequest } from "./api"
 
+// This module:
+// - Provides CRUD operations for posts
+// - Uses TypeScript for type safety
+// - Leverages common API utilities (fetchData/sendRequest)
+// - Returns promises for async operations
+// - Follows RESTful conventions
+
+// Each function:
+// - Has clear single responsibility
+// - Is properly typed
+// - Handles one HTTP method
+// - Uses template literals for URLs
+
 /**
  * API functions for managing posts
  */
@@ -25,15 +38,3 @@ export const deletePost = async (id: number): Promise<void> => {
   return sendRequest<void>(`/posts/${id}`, 'DELETE')
 }
 
-// This module:
-// - Provides CRUD operations for posts
-// - Uses TypeScript for type safety
-// - Leverages common API utilities (fetchData/sendRequest)
-// - Returns promises for async operations
-// - Follows RESTful conventions
-
-// Each function:
-// - Has clear single responsibility
-// - Is properly typed
-// - Handles one HTTP method
-// - Uses template literals for URLs

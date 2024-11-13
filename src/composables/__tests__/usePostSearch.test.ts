@@ -10,6 +10,7 @@ vi.mock('../useDebounce', () => ({
   useDebounce: () => debouncedValue
 }))
 
+// Tests for usePostSearch composable
 describe('usePostSearch', () => {
   const mockPosts = [
     {
@@ -26,6 +27,7 @@ describe('usePostSearch', () => {
     }
   ]
 
+  // Empty search tests
   test('returns all posts when search query is empty', () => {
     const pinia = createTestingPinia({
       createSpy: vi.fn,
@@ -61,7 +63,8 @@ describe('usePostSearch', () => {
     debouncedValue.value = '   '
     expect(filteredPosts.value).toEqual(mockPosts)
   })
-
+  
+  // Search functionality tests
   test('uses store.getPostsBySearch with debounced query', async () => {
     const pinia = createTestingPinia({
       createSpy: vi.fn,
@@ -88,7 +91,8 @@ describe('usePostSearch', () => {
     expect(store.getPostsBySearch).toHaveBeenCalledWith('Test')
     expect(posts).toEqual([mockPosts[0]])
   })
-
+  
+  // Reactivity tests
   test('reactive updates when search query changes', () => {
     const pinia = createTestingPinia({
       createSpy: vi.fn,
