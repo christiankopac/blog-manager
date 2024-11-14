@@ -1,6 +1,4 @@
 <script setup lang="ts">
-import { defineProps, defineEmits } from 'vue'
-
 interface Props {
   isLoading: boolean
   selectedCount: number
@@ -9,12 +7,13 @@ interface Props {
 
 defineProps<Props>()
 
-const emit = defineEmits<{
-  'create': []
-  'delete-selected': []
-  'close': []
-  'confirm': []
-}>()
+interface Emits {
+  (event: 'create'): void
+  (event: 'delete-selected'): void
+  (event: 'close'): void
+  (event: 'confirm'): void
+}
+const emit = defineEmits<Emits>()
 
 // Emit close event
 const onClose = () => emit('close')

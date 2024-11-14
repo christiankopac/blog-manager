@@ -1,19 +1,13 @@
 <script setup lang="ts">
-import { defineProps, defineEmits, type Ref } from 'vue'
-
 interface Props {
-  showDeleteModal: Ref<boolean>
+  showDeleteModal: boolean
 }
+defineProps<Props>()
 
 interface Emits {
   (event: 'close'): void
   (event: 'confirm'): void
 }
-
-// Define the props for the component
-defineProps<Props>()
-
-// Define the emits for the component
 const emit = defineEmits<Emits>()
 
 // Emit close event

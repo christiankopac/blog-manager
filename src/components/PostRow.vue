@@ -1,8 +1,6 @@
 <script setup lang="ts">
-import { defineProps, defineEmits } from 'vue'
 import type { Post } from '../types/post'
 
-// Define the props for the component
 interface Props {
     post: Post
     index: number
@@ -13,7 +11,6 @@ interface Props {
 }
 defineProps<Props>()
 
-// Define the emits for the component
 interface Emits {
     (event: 'checkbox-click', mouseEvent: MouseEvent, postId: number, index: number): void
     (event: 'toggle-menu', id: number): void

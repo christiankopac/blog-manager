@@ -1,18 +1,16 @@
 <script setup lang="ts">
-import { defineProps, defineEmits, ref, watch } from 'vue'
+import { ref, watch } from 'vue'
 import type { Post } from '../types/post'
 import type { User } from '../types/user'
 import { useFormValidation } from '../composables/useFormValidation'
 import { useFormSubmit } from '../composables/useFormSubmit'
 
-// Define the props for the component
 interface Props {
   post: Post | null
   users: User[]
 }
 const props = defineProps<Props>()
 
-// Define the emits for the component
 interface Emits {
   (event: 'close'): void
   (event: 'save', data: { title: string; body: string; userId: number }): void
