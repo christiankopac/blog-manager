@@ -1,4 +1,6 @@
+import type { Post } from '@/types/post'
 import { ref, computed, onMounted, onUnmounted } from 'vue'
+import type { ComputedRef } from 'vue'
 
 // This composable:
 // - Implements virtual scrolling for large lists
@@ -24,7 +26,7 @@ interface VirtualScrollOptions {
  * @param options - Configuration options for virtual scroll
  * @returns Object containing refs and computed properties for virtual scroll
  */
-export function useVirtualScroll<T>(items: T[], options: VirtualScrollOptions) {
+export function useVirtualScroll(items: ComputedRef<Post[]>, options: VirtualScrollOptions) {
   // Reactive references for scroll container
   const containerRef = ref<HTMLElement | null>(null)
   const scrollTop = ref(0)
@@ -43,20 +45,20 @@ export function useVirtualScroll<T>(items: T[], options: VirtualScrollOptions) {
     // Calculate visible range with buffer
     const start = Math.max(0, Math.floor(scrollTop.value / itemHeight) - buffer)
     const end = Math.min(
-      items.length,
+      items.value.length,
       Math.ceil((scrollTop.value + viewportHeight.value) / itemHeight) + buffer
     )
 
     // Map visible items to include positioning data
-    return items.slice(start, end).map((item, index) => ({
+    return items.value.slice(start, end).map((item, index) => ({
       index: start + index,
       data: item,
       style: {
         position: 'absolute',
         top: `${(start + index) * itemHeight}px`,
         height: `${itemHeight}px`,
-        left: 0,
-        right: 0,
+        left: "0",
+        right: "0",
       }
     }))
   })
@@ -65,7 +67,7 @@ export function useVirtualScroll<T>(items: T[], options: VirtualScrollOptions) {
    * Computed total height of all items
    * Used for scroll container sizing
    */
-  const totalHeight = computed(() => items.length * itemHeight)
+  const totalHeight = computed(() => items.value.length * itemHeight)
 
   /**
    * Handler for scroll events
@@ -95,10 +97,11 @@ export function useVirtualScroll<T>(items: T[], options: VirtualScrollOptions) {
   })
 
   return {
-    containerRef,   // Reference to scroll container
-    visibleItems,   // Currently visible items with positioning
-    totalHeight,    // Total scrollable height
-    handleScroll    // Scroll event handler
+    containerRef,                     // Reference to scroll container
+    visibleItems,                     // Currently visible items with positioning
+    totalHeight,                      // Total scrollable height
+    handleScroll,                     // Scroll event handler
+    forceUpdate: updateViewportHeight // Force update viewport height
   }
 }
 
