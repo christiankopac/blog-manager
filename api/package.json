@@ -7,7 +7,7 @@
         "dev": "ts-node src/app.ts"
     },
     "dependencies": {
-        "express": "^5.0.0",
+        "express": "^5.1.0",
         "sqlite": "^5.0.1",
         "sqlite3": "^5.1.6"
     },
